@@ -7,12 +7,17 @@ import { SelectModule } from 'primeng/select';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { Button } from 'primeng/button';
 import { Message } from 'primeng/message';
+import { Toast } from 'primeng/toast';
+import { AuthService } from '../../core/services/auth.service';
+import { IRegister } from '../../core/Interfaces/iregister';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-register',
-  imports: [FormsModule, InputGroupModule, InputGroupAddonModule, InputTextModule, SelectModule, InputNumberModule,ReactiveFormsModule,Button,Message],
+  imports: [FormsModule, InputGroupModule, InputGroupAddonModule, InputTextModule, SelectModule, InputNumberModule,ReactiveFormsModule,Button,Message,Toast],
   templateUrl: './register.html',
   styleUrl: './register.scss',
+  providers: [MessageService]
 })
 export class Register {
   msgs:string[] = ['2']
@@ -24,7 +29,7 @@ export class Register {
 
   registerationForm!: FormGroup
 
-  constructor() {
+  constructor(private _authServices:AuthService,private messageService:MessageService) {
     this.initFormControls()
     this.initFormGroup()
   }
@@ -58,10 +63,21 @@ export class Register {
 
   submit():void {
     if(this.registerationForm.valid) {
-      console.log(this.registerationForm.valid)
+      this.registrationApi(this.registerationForm.value)
     }else {
       this.registerationForm.markAllAsTouched()
       this.registerationForm.markAllAsDirty()
     }
+  }
+
+  registrationApi(data:IRegister): void {
+    this._authServices.register(data).subscribe({
+      next: (res) => this.show('success'),
+      error: (err) => this.show('error')
+    })
+  }
+
+  show(type:string) {
+        this.messageService.add({ severity: type, summary: type, detail: 'Register', life: 3000 });
   }
 }
