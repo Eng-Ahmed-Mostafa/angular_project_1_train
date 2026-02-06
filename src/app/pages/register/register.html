@@ -1,1 +1,86 @@
-<p>register works!</p>
+<section>
+  <div class="container">
+    <h1 class="mb-3">Register</h1>
+    <form action="" class="space-y-3" [formGroup]="registerationForm" (ngSubmit)="submit()">
+      <div>
+        <p-inputgroup>
+          <p-inputgroup-addon>
+            <i class="pi pi-user"></i>
+          </p-inputgroup-addon>
+          <input pInputText formControlName="name" placeholder="Username" />
+        </p-inputgroup>
+        <div class="vaildation-msg">
+          @if(name.dirty && name.touched) {
+            @if(name.getError('required')) {
+              <p-message [severity]="'error'">Name is required</p-message>
+            }
+            @if(name.getError('minlength')) {
+              <p-message [severity]="'error'">Most be at least 3 char</p-message>
+            }
+            @if(name.getError('maxlength')) {
+              <p-message [severity]="'error'">Most be at max 20 char</p-message>
+            }
+          }
+        </div>
+
+      </div>
+      <div>
+
+        <p-inputgroup>
+          <p-inputgroup-addon>
+            <i class="pi pi-at"></i>
+          </p-inputgroup-addon>
+          <input pInputText formControlName="email" placeholder="email" />
+        </p-inputgroup>
+        <div class="vaildation-msg">
+          @if(email.dirty && email.touched) {
+            @if(email.getError('required')) {
+              <p-message [severity]="'error'">Email is required</p-message>
+            }
+            @if(email.getError('email')) {
+              <p-message [severity]="'error'">Email not vaild</p-message>
+            }
+          }
+        </div>
+      </div>
+      <div>
+
+        <p-inputgroup>
+          <p-inputgroup-addon>
+            <i class="pi pi-key"></i>
+          </p-inputgroup-addon>
+          <input pInputText type="password" formControlName="password" placeholder="password" />
+        </p-inputgroup>
+        <div class="vaildation-msg">
+          @if(password.dirty && password.touched) {
+            @if(password.getError('required')) {
+              <p-message [severity]="'error'">password is required</p-message>
+            }
+            @if(password.getError('minlength')) {
+              <p-message [severity]="'error'">most be at least 8 char</p-message>
+            }
+          }
+        </div>
+      </div>
+      <div>
+
+        <p-inputgroup>
+          <p-inputgroup-addon>
+            <i class="pi pi-key"></i>
+          </p-inputgroup-addon>
+          <input pInputText type="password" formControlName="repassword" placeholder="repassword" />
+        </p-inputgroup>
+        <div class="vaildation-msg">
+          @if(repassword.dirty && repassword.touched) {
+            @if(repassword.getError('passNotMatch')) {
+              <p-message [severity]="'error'">repasswor not match</p-message>
+            }
+          }
+        </div>
+      </div>
+      <div>
+        <p-button type="submit" label="Submit" class=""/>
+      </div>
+    </form>
+  </div>
+</section>
