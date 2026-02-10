@@ -1,1 +1,53 @@
-<p>login works!</p>
+<section>
+  <div class="container">
+    <h1 class="mb-3">Register</h1>
+    <form action="" class="space-y-3" [formGroup]="loginForm" (ngSubmit)="submit()">
+      <div>
+        <p-inputgroup>
+          <p-inputgroup-addon>
+            <i class="pi pi-user"></i>
+          </p-inputgroup-addon>
+          <input pInputText formControlName="username" placeholder="Username" />
+        </p-inputgroup>
+        <div class="vaildation-msg">
+          @if(username.dirty && username.touched) {
+            @if(username.getError('required')) {
+              <p-message [severity]="'error'">Name is required</p-message>
+            }
+            @if(username.getError('minlength')) {
+              <p-message [severity]="'error'">Most be at least 3 char</p-message>
+            }
+            @if(username.getError('maxlength')) {
+              <p-message [severity]="'error'">Most be at max 20 char</p-message>
+            }
+          }
+        </div>
+
+      </div>
+      <div>
+
+        <p-inputgroup>
+          <p-inputgroup-addon>
+            <i class="pi pi-key"></i>
+          </p-inputgroup-addon>
+          <input pInputText type="password" formControlName="password" placeholder="password" />
+        </p-inputgroup>
+        <div class="vaildation-msg">
+          @if(password.dirty && password.touched) {
+            @if(password.getError('required')) {
+              <p-message [severity]="'error'">password is required</p-message>
+            }
+            @if(password.getError('minlength')) {
+              <p-message [severity]="'error'">most be at least 8 char</p-message>
+            }
+          }
+        </div>
+      </div>
+      <div>
+        <p-button type="submit" label="Submit" class=""/>
+      </div>
+    </form>
+  </div>
+  <p-toast />
+  <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "ball-scale-pulse" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner>
+</section>

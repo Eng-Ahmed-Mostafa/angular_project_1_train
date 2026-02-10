@@ -7,17 +7,17 @@
           <p-inputgroup-addon>
             <i class="pi pi-user"></i>
           </p-inputgroup-addon>
-          <input pInputText formControlName="name" placeholder="Username" />
+          <input pInputText formControlName="username" placeholder="Username" />
         </p-inputgroup>
         <div class="vaildation-msg">
-          @if(name.dirty && name.touched) {
-            @if(name.getError('required')) {
+          @if(username.dirty && username.touched) {
+            @if(username.getError('required')) {
               <p-message [severity]="'error'">Name is required</p-message>
             }
-            @if(name.getError('minlength')) {
+            @if(username.getError('minlength')) {
               <p-message [severity]="'error'">Most be at least 3 char</p-message>
             }
-            @if(name.getError('maxlength')) {
+            @if(username.getError('maxlength')) {
               <p-message [severity]="'error'">Most be at max 20 char</p-message>
             }
           }

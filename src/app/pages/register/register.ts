@@ -24,7 +24,7 @@ import {  Router } from '@angular/router';
 export class Register {
   msgs:string[] = ['2']
 
-  name!: FormControl
+  username!: FormControl
   email!: FormControl
   password!: FormControl
   repassword!: FormControl
@@ -37,7 +37,7 @@ export class Register {
   }
 
   initFormControls(): void {
-    this.name = new FormControl('',[Validators.required,Validators.minLength(3),Validators.maxLength(20)])
+    this.username = new FormControl('',[Validators.required,Validators.minLength(3),Validators.maxLength(20)])
     this.email = new FormControl('',[Validators.required,Validators.email])
     this.password = new FormControl('',[Validators.required,Validators.minLength(8)])
     this.repassword = new FormControl('',[Validators.required,this.passwordMatch(this.password)])
@@ -45,7 +45,7 @@ export class Register {
 
   initFormGroup(): void {
     this.registerationForm = new FormGroup({
-      name: this.name,
+      username: this.username,
       email: this.email,
       password: this.password,
       repassword: this.repassword
@@ -77,8 +77,8 @@ export class Register {
     this._authServices.register(data).subscribe({
       next: (res) => {
         this.show('success')
-        this._router.navigate(['auth/login'])
         this.spinner.hide();
+        this._router.navigate(['auth/login'])
       },
       error: (err) => this.show('error')
     })

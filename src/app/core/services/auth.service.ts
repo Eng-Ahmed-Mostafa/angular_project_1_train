@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { baseUrl } from '../apiRoot/baseUrl';
 import { IRegister } from '../Interfaces/iregister';
+import { ILogin } from '../Interfaces/ilogin';
 
 @Injectable({
   providedIn: 'root',
@@ -13,5 +14,9 @@ export class AuthService {
 
   register(registerData:IRegister): Observable<any> {
     return this._httpClient.post(`${baseUrl}/users`,registerData);
+  }
+
+  login(loginData:ILogin): Observable<any> {
+    return this._httpClient.post(`${baseUrl}/auth/login`,loginData);
   }
 }
