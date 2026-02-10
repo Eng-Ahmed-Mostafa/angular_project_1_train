@@ -52,6 +52,7 @@ export class Login {
     this.spinner.show();
     this._authServices.login(data).subscribe({
       next: (res) => {
+        localStorage.setItem('token',res.id);
         this.show('success')
         this.spinner.hide();
         this._router.navigate(['user/home'])
