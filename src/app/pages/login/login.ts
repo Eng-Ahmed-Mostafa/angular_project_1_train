@@ -1,25 +1,17 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, ValidatorFn, Validators } from '@angular/forms';
-import { InputGroupModule } from 'primeng/inputgroup';
-import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
-import { InputTextModule } from 'primeng/inputtext';
-import { SelectModule } from 'primeng/select';
-import { InputNumberModule } from 'primeng/inputnumber';
-import { Button } from 'primeng/button';
-import { Message } from 'primeng/message';
-import { Toast } from 'primeng/toast';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../core/services/auth.service';
 import { ILogin } from '../../core/Interfaces/ilogin';
-import { MessageService } from 'primeng/api';
-import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { Router } from '@angular/router';
+import { SharedModule } from '../../core/shared/Module/shared/shared-module';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-login',
-  imports: [FormsModule, InputGroupModule, InputGroupAddonModule, InputTextModule, SelectModule, InputNumberModule, ReactiveFormsModule, Button, Message, Toast, NgxSpinnerModule],
+  imports: [SharedModule],
   templateUrl: './login.html',
   styleUrl: './login.scss',
-  providers: [MessageService]
 })
 export class Login {
   msgs: string[] = ['2']

@@ -7,7 +7,7 @@
           <p-inputgroup-addon>
             <i class="pi pi-user"></i>
           </p-inputgroup-addon>
-          <input pInputText formControlName="username" placeholder="Username" />
+          <input pInputText formControlName="username" [pAutoFocus]="true" placeholder="Username" />
         </p-inputgroup>
         <div class="vaildation-msg">
           @if(username.dirty && username.touched) {

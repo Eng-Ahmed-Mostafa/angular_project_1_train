@@ -1,28 +1,21 @@
 import { Component } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, FormsModule, ReactiveFormsModule, ValidatorFn, Validators } from '@angular/forms';
-import { InputGroupModule } from 'primeng/inputgroup';
-import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
-import { InputTextModule } from 'primeng/inputtext';
-import { SelectModule } from 'primeng/select';
-import { InputNumberModule } from 'primeng/inputnumber';
-import { Button } from 'primeng/button';
-import { Message } from 'primeng/message';
-import { Toast } from 'primeng/toast';
+import { AbstractControl, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { AuthService } from '../../core/services/auth.service';
 import { IRegister } from '../../core/Interfaces/iregister';
 import { MessageService } from 'primeng/api';
-import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
-import {  Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { Router } from '@angular/router';
+import { SharedModule } from '../../core/shared/Module/shared/shared-module';
 
 @Component({
   selector: 'app-register',
-  imports: [FormsModule, InputGroupModule, InputGroupAddonModule, InputTextModule, SelectModule, InputNumberModule,ReactiveFormsModule,Button,Message,Toast,NgxSpinnerModule],
+  imports: [SharedModule],
   templateUrl: './register.html',
   styleUrl: './register.scss',
-  providers: [MessageService]
+
 })
 export class Register {
-  msgs:string[] = ['2']
+  msgs: string[] = ['2']
 
   username!: FormControl
   email!: FormControl
@@ -31,16 +24,16 @@ export class Register {
 
   registerationForm!: FormGroup
 
-  constructor(private _authServices:AuthService,private messageService:MessageService,private spinner:NgxSpinnerService,private _router:Router) {
+  constructor(private _authServices: AuthService, private messageService: MessageService, private spinner: NgxSpinnerService, private _router: Router) {
     this.initFormControls()
     this.initFormGroup()
   }
 
   initFormControls(): void {
-    this.username = new FormControl('',[Validators.required,Validators.minLength(3),Validators.maxLength(20)])
-    this.email = new FormControl('',[Validators.required,Validators.email])
-    this.password = new FormControl('',[Validators.required,Validators.minLength(8)])
-    this.repassword = new FormControl('',[Validators.required,this.passwordMatch(this.password)])
+    this.username = new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(20)])
+    this.email = new FormControl('', [Validators.required, Validators.email])
+    this.password = new FormControl('', [Validators.required, Validators.minLength(8)])
+    this.repassword = new FormControl('', [Validators.required, this.passwordMatch(this.password)])
   }
 
   initFormGroup(): void {
@@ -52,10 +45,10 @@ export class Register {
     })
   }
 
-  passwordMatch(pass:AbstractControl):ValidatorFn {
-    return (rePass:AbstractControl): null | {[key:string]:boolean} => {
-      if(pass.value !== rePass.value) {
-        return {passNotMatch:true}
+  passwordMatch(pass: AbstractControl): ValidatorFn {
+    return (rePass: AbstractControl): null | { [key: string]: boolean } => {
+      if (pass.value !== rePass.value) {
+        return { passNotMatch: true }
       }
       else {
         return null
@@ -63,16 +56,16 @@ export class Register {
     }
   }
 
-  submit():void {
-    if(this.registerationForm.valid) {
+  submit(): void {
+    if (this.registerationForm.valid) {
       this.registrationApi(this.registerationForm.value)
-    }else {
+    } else {
       this.registerationForm.markAllAsTouched()
       this.registerationForm.markAllAsDirty()
     }
   }
 
-  registrationApi(data:IRegister): void {
+  registrationApi(data: IRegister): void {
     this.spinner.show();
     this._authServices.register(data).subscribe({
       next: (res) => {
@@ -84,7 +77,7 @@ export class Register {
     })
   }
 
-  show(type:string) {
-        this.messageService.add({ severity: type, summary: type, detail: 'Register', life: 3000 });
+  show(type: string) {
+    this.messageService.add({ severity: type, summary: type, detail: 'Register', life: 3000 });
   }
 }
