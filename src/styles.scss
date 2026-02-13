@@ -9,7 +9,14 @@ body {
 .container {
   width: 100%;
   padding: 1rem;
-  margin: 0 auto;
+  margin: {
+    right: auto;
+    left: auto;
+  };
+  padding: {
+    right: 20px;
+    left: 20px;
+  };
 }
 
 /* Tablet breakpoint */

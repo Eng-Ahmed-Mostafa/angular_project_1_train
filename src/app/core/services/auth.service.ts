@@ -19,4 +19,15 @@ export class AuthService {
   login(loginData:ILogin): Observable<any> {
     return this._httpClient.post(`${baseUrl}/auth/login`,loginData);
   }
+
+  authoriezed(): boolean {
+    if(localStorage.getItem('token') != null) {
+      return true;
+    }
+    return false;
+  }
+
+  logout(): Observable<any> {
+    return this._httpClient.post(`${baseUrl}/api/users/logout`,{});
+  }
 }

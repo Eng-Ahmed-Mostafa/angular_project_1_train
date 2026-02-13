@@ -1,3 +1,4 @@
+import { UserService } from './../../core/services/user.service';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../core/services/auth.service';
@@ -21,7 +22,7 @@ export class Login {
 
   loginForm!: FormGroup
 
-  constructor(private _authServices: AuthService, private messageService: MessageService, private spinner: NgxSpinnerService, private _router: Router) {
+  constructor(private _authServices: AuthService, private messageService: MessageService, private spinner: NgxSpinnerService, private _router: Router,private userData:UserService) {
     this.initFormControls()
     this.initFormGroup()
   }
@@ -53,6 +54,7 @@ export class Login {
     this._authServices.login(data).subscribe({
       next: (res) => {
         localStorage.setItem('token',res.id);
+        this.userData.userName.next(res.username)
         this.show('success')
         this.spinner.hide();
         this._router.navigate(['user/home'])
